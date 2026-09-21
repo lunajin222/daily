@@ -1,7 +1,20 @@
+'use client';
 import Image from "next/image";
 import { BookOpenCheck } from "lucide-react";
+import React, { useState } from "react";
 import Card from "@/components/Card";
+
 export default function Home() {
+  const [email, setEmail] =useState('');
+
+  // const [isSubscribed, setIsSubscribed] = React.useState(false);
+
+  const handleSubscribe = () => {
+    fetch('/api/subscribe', {
+      method:'POST',
+      body: JSON.stringify({ email }),
+    })
+  };
   return (
     <div className="min-h-screen bg-white">
       {/* header */}
@@ -26,8 +39,8 @@ export default function Home() {
         </div>
         {/* input and subscribe button */}
         <div className='text-center flex items-center justify-center gap-4'>
-          <input type="email" placeholder="Enter your email" className="border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-black focus:border-black" />
-          <button className="bg-black text-white px-6 py-2 rounded-md hover:bg-blue-600 transition-colors">Subscribe</button>
+          <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Enter your email" className="border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-black focus:border-black" />
+          <button onClick={handleSubscribe} className="bg-black text-white px-6 py-2 rounded-md hover:bg-blue-600 transition-colors">Subscribe</button>
         </div>
         {/* cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
