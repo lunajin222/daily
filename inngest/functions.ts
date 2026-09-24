@@ -11,7 +11,9 @@ import {
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 // 发件人与订阅者列表（segment）
-const FROM = "Daily Briefs <onboarding@resend.dev>";
+// 生产环境请在 Vercel 里设置 RESEND_FROM，例如 "Daily Briefs <news@yourdomain.com>"。
+// 没验证域名前只能用 onboarding@resend.dev，而它只能发给你 Resend 账号本人的邮箱。
+const FROM = process.env.RESEND_FROM ?? "Daily Briefs <onboarding@resend.dev>";
 const SEGMENT_ID = "cc3c642a-310f-4137-a574-28a2295712a5";
 
 // 简单校验邮箱，避免把明显错误的地址交给 Resend
